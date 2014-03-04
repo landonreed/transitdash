@@ -1,0 +1,17 @@
+paginate: 10
+
+markdown: maruku
+permalink: pretty
+
+safe: true
+lsi: false
+pygments: true
+baseurl: /transitdash
+
+githubuser: atlregional
+
+# prose.io settings
+# https://github.com/prose/prose/wiki/Prose-Configuration
+prose:
+  rooturl: 'data'
+  siteurl: 'http://atlregional.github.io/transitdash/'
