@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.chart rect {
+  fill: steelblue;
+}
+
+.chart text {
+  fill: white;
+  font: 10px sans-serif;
+  text-anchor: end;
+}
+
+</style>
+<body>
+	<h1>Unlinked Passenger Trips</h1>
+	<div>
+		<select class="year"></select>
+		<select class="month"></select>
+	</div>
+	<svg class="chart"></svg>
+</body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+$(document).ready(function(){
+	$.each(month, function(key, value) {   
+		$('.month')
+			.append($("<option></option>")
+				.attr("value",value)
+				.text(value)); 
+	});
+	// $('select option[value="DEC"]').attr("selected",true);
+	$.each(years, function(key, value) {   
+		$('.year')
+			.append($("<option></option>")
+				.attr("value",value)
+				.text("20" + value)); 
+	});
+	// $('select option[value="12"]').attr("selected",true);
+})
+var months = {
+	"JAN" : "January",
+	"FEB" : "February",
+	"MAR" : "March",
+	"APR" : "April",
+	"MAY" : "May",
+	"JUN" : "June",
+	"JUL" : "July",
+	"AUG" : "August",
+	"SEP" : "September",
+	"OCT" : "October",
+	"NOV" : "November",
+	"DEC" : "December"
+};
+var month = [
+	"JAN",
+	"FEB",
+	"MAR",
+	"APR",
+	"MAY",
+	"JUN",
+	"JUL",
+	"AUG",
+	"SEP",
+	"OCT",
+	"NOV",
+	"DEC"
+];
+
+var years = [
+	"13",
+	"12",
+	"11",
+	"10",
+	"09",
+	"08",
+	"07",
+	"06",
+	"05",
+	"04",
+	"03",
+	"02",
+	"01"
+]
+
+
+
+d3.tsv("/data/upt.tsv", function(error, data) {
+	
+	var yr = $('.year').val()
+	console.log(yr)
+
+	var mth = $('.month').val()
+	console.log(mth)
+
+	dat = data
+	drawBar(yr, mth, data);	
+});
+
+$('select').change(function() {
+	d3.select("svg")
+       .remove();
+	var yr = $('.year').val()
+	var mth = $('.month').val()
+	console.log(mth)
+	drawBar(yr, mth, dat)
+	
+})
+
+function drawBar(yr, mth, data){
+	d3.select("body")
+       .append("svg");
+	var width = 1000,
+    barHeight = 20;
+
+	var format = d3.format("0,000");
+	var x = d3.scale.linear()
+	    .range([0, width]);
+	var dat;
+	var chart = d3.select(".chart")
+	    .attr("width", width);
+	console.log(data)
+	console.log(mth + yr)
+	x.domain([0, d3.max(data, function(d) { return d[mth + yr]; })]);
+
+	  chart.attr("height", barHeight * data.length);
+
+	  var bar = chart.selectAll("g")
+	      .data(data)
+	      .enter().append("g")
+	      .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+
+	  bar.append("rect")
+	      .attr("width", function(d) { return x(d[mth + yr]); })
+	      .attr("height", barHeight - 1);
+
+	  bar.append("text")
+	      .attr("x", function(d) { return x(d[mth + yr]) - 3; })
+	      .attr("y", barHeight / 2)
+	      .attr("dy", ".35em")
+	      .text(function(d) { return d["Agency"]+" | "+format(d[mth + yr]); });
+	
+}
+
+function type(d) {
+	$.each(years, function(key, yr) {   
+		$.each(month, function(key, mth) {   
+			d[mth + yr] = +d[mth + yr]; // coerce to number
+			return d;
+		});
+	});
+	
+}
+
+</script>
