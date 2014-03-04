@@ -11,7 +11,7 @@
 	<script src="http://code.highcharts.com/modules/exporting.js"></script>
 </head>
 <body>
-	<div id="container" style="min-width: 310px; height: 650px; margin: 0 auto"></div>
+	<div id="container" style="min-width: 700px; height: 700px; margin: 0 auto"></div>
 </body>
 </html>
 <script type="text/javascript">
@@ -30,7 +30,20 @@
 			"NOV",
 			"DEC"
 		];
-
+		monthNum = [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"7",
+			"8",
+			"9",
+			"10",
+			"11",
+			"12"
+		]
 		var years = [
 			"13",
 			"12",
@@ -62,9 +75,15 @@
 			"13"
 		]
 		var cat = [];
+		var catNum = [];
 		$.each(yearsReverse, function(key, yr) {   
 			$.each(month, function(key, mth) {   
 				cat.push(mth+yr)
+
+			});
+			$.each(monthNum, function(key, mth) {   
+				catNum.push(mth)
+
 			});
 		});
 		console.log(cat)
@@ -73,7 +92,7 @@
 			var series = []
 			$.each(data, function(i, record) {
 				// Only pull fixed route mode
-				if ( record['Modes'] == "HR" ){
+				if ( record['Modes'] == "MB" ){
 					console.log(i)
 					var obj = {}
 					obj.name = record['Agency']
@@ -88,10 +107,12 @@
 				}
 			});
 			console.log(series)
-	        $('#container').highcharts({
-	        	data: {
-	                csv: data
-	            },
+			
+	        var options = {
+	        	chart: {
+					renderTo: 'container',
+					type: 'line'
+				},
 	            title: {
 	                text: 'Unlinked Passenger Trips by Operator',
 	                x: -20 //center
@@ -123,7 +144,8 @@
 	                borderWidth: 0
 	            },
 	            series: series
-	        });
+	        };
+	        var chart = new Highcharts.Chart(options);
 		});
     });
 </script>
