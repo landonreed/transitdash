@@ -87,7 +87,7 @@ var years = [
 
 
 
-d3.tsv("/data/upt.tsv", function(error, data) {
+d3.tsv("{{ site.baseurl }}/data/upt.tsv", function(error, data) {
 	
 	var yr = $('.year').val()
 	console.log(yr)
