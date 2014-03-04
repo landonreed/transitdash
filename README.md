@@ -7,7 +7,7 @@ No need to even download this repo... this here is a fork n go.
 
 1. Click fork in the top left corner
 2. Wait a few minutes
-3. Go to http://[your-username]/github.io/transitdash to see your copy
+3. Go to [http://[your-username]/github.io/transitdash](http://[your-username]/github.io/transitdash) to see your copy
 
 
 
