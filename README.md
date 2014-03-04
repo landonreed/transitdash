@@ -4,6 +4,7 @@ transitdash
 dashboard for visualizing and easily importing ntd data
 ##Usage
 No need to even download this repo... this here is a fork n go.
+
 1. Click fork in the top left corner
 2. Wait a few minutes
 3. Go to http://[your-username]/github.io/transitdash to see your copy
@@ -13,6 +14,7 @@ No need to even download this repo... this here is a fork n go.
 
 ## Data "Import"
 Instructions for adding a given metropolitan area's data to transitdash
+
 1. Download 'Monthly Database' data (.xls) from http://www.ntdprogram.gov/ntdprogram/
 2. Open spreadsheet with your choice of software (excel, libreoffice, etc.)
 3. Go to UPT tab and filter by `UZA Name`
